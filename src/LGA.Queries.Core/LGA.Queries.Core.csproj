@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LGA.Queries.Core.Abstractions\LGA.Queries.Core.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
