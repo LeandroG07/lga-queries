@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LGA.Queries.Core", "src\LGA.Queries.Core\LGA.Queries.Core.csproj", "{93C055B8-2E16-4445-9B18-79DD902CBA40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LGA.Queries.Core", "src\LGA.Queries.Core\LGA.Queries.Core.csproj", "{93C055B8-2E16-4445-9B18-79DD902CBA40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LGA.Queries.Core.Abstractions", "src\LGA.Queries.Core.Abstractions\LGA.Queries.Core.Abstractions.csproj", "{EF9485D7-ADB3-4184-AB89-2374B7EF35C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LGA.Queries.Core.Abstractions", "src\LGA.Queries.Core.Abstractions\LGA.Queries.Core.Abstractions.csproj", "{EF9485D7-ADB3-4184-AB89-2374B7EF35C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4056EFDF-5FC3-4614-A0CD-7DFFA39CE542}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{742389EF-38C9-45FF-99FD-DE566A0F003A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LGA.Queries.Core.Tests", "tests\LGA.Queries.Core.Tests\LGA.Queries.Core.Tests.csproj", "{F10E8400-0351-4DEC-8D9E-8B64814720FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +27,18 @@ Global
 		{EF9485D7-ADB3-4184-AB89-2374B7EF35C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF9485D7-ADB3-4184-AB89-2374B7EF35C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF9485D7-ADB3-4184-AB89-2374B7EF35C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10E8400-0351-4DEC-8D9E-8B64814720FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10E8400-0351-4DEC-8D9E-8B64814720FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10E8400-0351-4DEC-8D9E-8B64814720FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10E8400-0351-4DEC-8D9E-8B64814720FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{93C055B8-2E16-4445-9B18-79DD902CBA40} = {4056EFDF-5FC3-4614-A0CD-7DFFA39CE542}
+		{EF9485D7-ADB3-4184-AB89-2374B7EF35C5} = {4056EFDF-5FC3-4614-A0CD-7DFFA39CE542}
+		{F10E8400-0351-4DEC-8D9E-8B64814720FA} = {742389EF-38C9-45FF-99FD-DE566A0F003A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B672A04-C1D2-44F1-8591-8C3A94FCBFB1}
