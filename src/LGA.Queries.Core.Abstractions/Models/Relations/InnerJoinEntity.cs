@@ -3,7 +3,7 @@ namespace LGA.Queries.Core.Abstractions.Models.Relations
 {
     public class InnerJoinEntity : RelationEntity
     {
-        public InnerJoinEntity(string table, string identityField, string relationalTable, string identityRelationalField, string[] relationalFields) : base(table, identityField, relationalTable, identityRelationalField, relationalFields)
+        public InnerJoinEntity(string table, string identityField, string[] fields, string relationalTable, string identityRelationalField) : base(table, identityField, fields, relationalTable, identityRelationalField)
         {
         }
 

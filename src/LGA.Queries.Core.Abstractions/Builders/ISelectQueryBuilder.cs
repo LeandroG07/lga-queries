@@ -8,11 +8,11 @@ namespace LGA.Queries.Core.Abstractions.Builders
 
         void InnerJoin(InnerJoinEntity relation);
 
-        void InnerJoin(string table, string identityField, string relationalTable, string identityRelationalField, string[] relationalFields);
+        void InnerJoin(string table, string identityField, string[] fields, string relationalTable, string identityRelationalField);
 
         void LeftJoin(LeftJoinEntity relation);
 
-        void LeftJoin(string table, string identityField, string relationalTable, string identityRelationalField, string[] relationalFields);
+        void LeftJoin(string table, string identityField, string[] fields, string relationalTable, string identityRelationalField);
 
         void Where(string field, FieldComparerType comparer, object value);
 

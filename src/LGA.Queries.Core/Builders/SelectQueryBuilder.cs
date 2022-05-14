@@ -11,50 +11,44 @@ namespace LGA.Queries.Core.Builders
     {
         private readonly StringBuilder _query;
 
-        private readonly List<TableFieldEntity> _fields;
+        private readonly List<TableFieldEntity> _tableFields;
         private readonly List<RelationEntity> _relations;
         private readonly List<ConditionEntity> _conditions;
 
-        //private List<TableFieldEntity> Fields { get; }
-        
         public string Query { get => _query.ToString(); }
 
         public SelectQueryBuilder(string[] fields, string table) : base(table)
         {
             _query = new StringBuilder();
-            _fields = fields.Select(f => new TableFieldEntity(table, f)).ToList();
+            _tableFields = fields.Select(f => new TableFieldEntity(table, f)).ToList();
             _relations = new List<RelationEntity>();
             _conditions = new List<ConditionEntity>();
         }
 
-        private void Select()
-        {
-            _query.AppendLine($"SELECT {StringExtensions.Join($", ", $"{Table}.", Fields)}");
-        }
-
-        private void From()
-        {
-            _query.AppendLine($"FROM {Table} WITH(NOLOCK)");
-        }
-
         public void InnerJoin(InnerJoinEntity relation)
         {
-            _relations.Add(relation);
+            AddRelation(relation);
         }
 
-        public void InnerJoin(string table, string identityField, string relationalTable, string identityRelationalField, string[] relationalFields)
+        public void InnerJoin(string table, string identityField, string[] fields, string relationalTable, string identityRelationalField)
         {
-            InnerJoin(new InnerJoinEntity(table, identityField, relationalTable, identityRelationalField, relationalFields));
+            InnerJoin(new InnerJoinEntity(table, identityField, fields, relationalTable, identityRelationalField));
         }
 
         public void LeftJoin(LeftJoinEntity relation)
         {
-            _relations.Add(relation);
+            AddRelation(relation);
         }
 
-        public void LeftJoin(string table, string identityField, string relationalTable, string identityRelationalField, string[] relationalFields)
+        public void LeftJoin(string table, string identityField, string[] fields, string relationalTable, string identityRelationalField)
         {
-            LeftJoin(new LeftJoinEntity(table, identityField, relationalTable, identityRelationalField, relationalFields));
+            LeftJoin(new LeftJoinEntity(table, identityField, fields, relationalTable, identityRelationalField));
+        }
+
+        private void AddRelation(RelationEntity relation)
+        {
+            _relations.Add(relation);
+            relation.Fields.ToList().ForEach(f => _tableFields.Add(new TableFieldEntity(relation.Table, f)));
         }
 
         public void Where(ConditionEntity condition)
@@ -70,6 +64,16 @@ namespace LGA.Queries.Core.Builders
         public void Where(string table, string field, FieldComparerType comparer, object value)
         {
             Where(new ConditionEntity(table, field, comparer, value));
+        }
+
+        private void BuildFields()
+        {
+            _query.AppendLine($"SELECT {string.Join($", ", _tableFields.Select(f => $"{f.Table}.{f.Field}").ToArray())}");
+        }
+
+        private void BuildTable()
+        {
+            _query.AppendLine($"FROM {Table} WITH(NOLOCK)");
         }
 
         private void BuildRelations()
@@ -92,9 +96,9 @@ namespace LGA.Queries.Core.Builders
         }
 
         public override IQueryBuilder Build()
-        {
-            Select();
-            From();
+        {           
+            BuildFields();
+            BuildTable();
             BuildRelations();
             BuildConditions();
 
