@@ -1,4 +1,4 @@
-﻿
+﻿using LGA.Queries.Core.Abstractions.Models.Fields;
 using LGA.Queries.Core.Builders;
 using Xunit;
 
@@ -16,6 +16,19 @@ namespace LGA.Queries.Core.Tests
             selectQueryBuilder.Build();
 
             Assert.Equal(resultQuery, selectQueryBuilder.Query);
+        }
+
+        [Theory]
+        [InlineData(new string[] { "IdCliente", "Nome" }, "Cliente", "Nome", FieldComparerType.Equal, "Joao", "SELECT Cliente.IdCliente, Cliente.Nome\r\nFROM Cliente WITH(NOLOCK)\r\nWHERE Cliente.Nome = @Cliente.Nome")]
+        public void ShouldBuildSelectWhereQuery(string[] fields, string table, string fieldCondition, FieldComparerType comparer, object value , string resultQuery)
+        {
+            var selectQueryBuilder = new SelectQueryBuilder(fields, table);
+
+            selectQueryBuilder.Where(fieldCondition, comparer, value);
+            selectQueryBuilder.Build();
+
+            Assert.Equal(resultQuery, selectQueryBuilder.Query);
+            Assert.Contains(selectQueryBuilder.Conditions, c => c.Value == value);
         }
 
         [Theory]

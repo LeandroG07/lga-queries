@@ -2,7 +2,6 @@
 using LGA.Queries.Core.Abstractions.Models.Fields;
 using LGA.Queries.Core.Abstractions.Models.Conditions;
 using LGA.Queries.Core.Abstractions.Models.Relations;
-using LGA.Queries.Core.Extensions.Strings;
 using System.Text;
 
 namespace LGA.Queries.Core.Builders
@@ -14,6 +13,8 @@ namespace LGA.Queries.Core.Builders
         private readonly List<TableFieldEntity> _tableFields;
         private readonly List<RelationEntity> _relations;
         private readonly List<ConditionEntity> _conditions;
+
+        public IReadOnlyList<ConditionEntity> Conditions { get => _conditions; }
 
         public string Query { get => _query.ToString().Trim(); }
 

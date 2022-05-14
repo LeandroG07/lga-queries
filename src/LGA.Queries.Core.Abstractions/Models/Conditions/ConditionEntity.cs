@@ -7,15 +7,17 @@ namespace LGA.Queries.Core.Abstractions.Models.Conditions
 
         private readonly FieldComparerCommand _commands;
 
-        public string Table { get; }
-        public string Field { get; }
+        public TableFieldEntity TableField { get; }
         public FieldComparerType Comparer { get; }
         public object Value { get; }
 
-        public ConditionEntity(string table, string field, FieldComparerType comprarer, object value)
+        public ConditionEntity(string table, string field, FieldComparerType comprarer, object value) : this(new TableFieldEntity(table, field), comprarer, value)
         {
-            Table = table;
-            Field = field;
+        }
+
+        public ConditionEntity(TableFieldEntity tableField, FieldComparerType comprarer, object value)
+        {
+            TableField = tableField;
             Comparer = comprarer;
             Value = value;
             _commands = new FieldComparerCommand();
@@ -23,7 +25,7 @@ namespace LGA.Queries.Core.Abstractions.Models.Conditions
 
         public string? ComparerCommand { get => _commands.Get(Comparer); }
 
-        public string ConditionQuery { get => $"{Table}.{Field} {ComparerCommand} @{Table}.{Field}"; }
+        public string ConditionQuery { get => $"{TableField.Table}.{TableField.Field} {ComparerCommand} @{TableField.Table}.{TableField.Field}"; }
 
     }
 }
