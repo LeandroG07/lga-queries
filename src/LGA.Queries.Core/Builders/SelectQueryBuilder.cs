@@ -15,7 +15,7 @@ namespace LGA.Queries.Core.Builders
         private readonly List<RelationEntity> _relations;
         private readonly List<ConditionEntity> _conditions;
 
-        public string Query { get => _query.ToString(); }
+        public string Query { get => _query.ToString().Trim(); }
 
         public SelectQueryBuilder(string[] fields, string table) : base(table)
         {
@@ -79,7 +79,7 @@ namespace LGA.Queries.Core.Builders
         private void BuildRelations()
         {
             if (_relations.Any())
-                _relations.ForEach(r => _query.Append(r.RelationalQuery));
+                _relations.ForEach(r => _query.AppendLine(r.RelationalQuery));
         }
 
         private void BuildConditions()
